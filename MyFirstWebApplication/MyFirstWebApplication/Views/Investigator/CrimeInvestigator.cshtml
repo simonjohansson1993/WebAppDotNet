@@ -1,0 +1,37 @@
+﻿@{
+  Layout = "_CrimeLayout";
+}
+@await Component.InvokeAsync("CrimeList", ViewBag.ID)
+
+
+<body>
+  <div id="content">
+    @model ErrandStatus
+    <section id="bottomColumn">
+      <h3>Redigera ärende</h3>
+      <form asp-controller="Investigator" asp-action="UpdateErrandStatus" asp-route-id="@ViewBag.ID" method="post" enctype="multipart/form-data" multiple>
+        <p class="label">Händelser:</p>
+        <textarea name="events" rows="5" cols="60"></textarea>
+
+        <p class="label">Mer information:</p>
+        <textarea name="information" rows="5" cols="60"></textarea>
+
+        <p class="label">Prover:</p>
+        <input type="file" name="loadSample" />
+
+        <p class="label">Ladda upp bilder:</p>
+        <input type="file" name="loadImage" />
+
+        <p class="label">Ändring av status:</p>
+
+        <select name="statusId" asp-for="StatusId" asp-items="@(new SelectList(ViewBag.ListOfErrandStatuses, "StatusId", "StatusName"))">
+          <option selected="selected">Välj</option>
+        </select>
+
+        <p>
+          <input class="button" type="submit" value="Spara ändringarna"/>
+        </p>
+      </form>
+    </section>
+  </div>
+</body>

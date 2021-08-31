@@ -1,0 +1,33 @@
+﻿@{
+  Layout = "_CrimeLayout";
+}
+@await Component.InvokeAsync("CrimeList", ViewBag.ID)
+
+
+<body>
+  <div id="content">
+    @model Employee
+    <section id="bottomColumn">
+      <h3>Redigera ärende</h3>
+      <!--Copied tag-helpers from coordinator get Viewbag that contains the id changed to manager controller -->
+      <form asp-controller="Manager" asp-action="UpdateErrand" asp-route-id="@ViewBag.ID" method="post">
+        <p>
+          Ange handläggare:
+          <!--  <select name="investigatorID" id="select_investigator" required onchange="item_selected()"> -->
+          
+          <select name="investigatorID" asp-for="EmployeeId" asp-items="@(new SelectList(ViewBag.ListOfEmployees, "EmployeeId", "EmployeeName"))">
+            <option selected="selected">Välj</option>
+            
+            <!--   -razorsymbol foreach (Employee employee in ViewBag.ListOfEmployees) { -->
+            <!--     <option value="razorsymbol employee.EmployeeId">razorsymbol employee.EmployeeName</option> -->
+            <!--    } -->
+          </select>
+        </p>
+          <p><input type="checkbox" name="noAction" value="true" /> Ingen åtgärd: <input type="text" name="reason" value="Ange motivering" /></p>
+          <p><input class="button" type="submit" value="Spara" /></p>
+        </form>
+      </section>
+    </div>
+
+  </body>
+

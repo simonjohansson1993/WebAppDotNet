@@ -1,0 +1,29 @@
+﻿@{
+  Layout = "_CrimeLayout";
+}
+
+@await Component.InvokeAsync("CrimeList",ViewBag.ID)
+<body>
+  <div id="content">
+
+    @model Department
+    <section id="bottomColumn">
+      <h3>Redigera ärende</h3>
+      <form asp-controller="Coordinator" asp-action="UpdateErrand" asp-route-id="@ViewBag.ID" method="post">
+        <p>
+          Ange enhet:
+          <select asp-for="DepartmentId" asp-items="@(new SelectList(ViewBag.ListOfDepartments, "DepartmentId", "DepartmentName"))">
+            <option selected="selected">Välj</option>
+           
+          </select>
+        </p>
+        <p><input class="button" type="submit" value="Spara" /></p>
+      </form>
+    </section>
+  </div>
+</body>
+
+
+
+
+

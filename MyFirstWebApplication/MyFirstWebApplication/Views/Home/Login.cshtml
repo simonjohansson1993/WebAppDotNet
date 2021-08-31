@@ -1,0 +1,37 @@
+﻿@{
+    Layout = "_SideLayout";
+}
+
+
+<body>
+  <div id="content">
+    <section id="mainColumn">
+      <h2>Inloggning för Småstads personal</h2>
+      <p class="info">En säker tjänst från Småstads IT-avdelning</p>
+
+      <form method="post" asp-controller="Coordinator" asp-action="StartCoordinator">
+        <p>
+          <input type="hidden" name="isSubmitted" value="true" />
+        </p>
+        <p>
+          <span class="label">Användarnamn:</span><br />
+          <input type="text" name="user" />
+        </p>
+        <p>
+          <span class="label">Lösenord:</span><br />
+          <input type="password" name="password" />
+        </p>
+        <p>
+          <input class="button" type="submit" value="Inloggning av samordnare" />
+          <br />
+          <!--Dessa länkar ska sedan tas bort då det är meningen att vid kontrollen av inloggningsuppgifter så hämtas rätt sida-->
+          <input class="button"  type="submit" value="Inloggning av chefer" asp-controller="Manager" asp-action="StartManager"><br />
+          <input class="button"  type="submit" value="Inloggning av handläggare" asp-controller="Investigator" asp-action="StartInvestigator">
+        </p>
+      </form>
+    </section><!-- End Left -->
+    </div>
+</body>
+
+
+

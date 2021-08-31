@@ -1,0 +1,97 @@
+﻿
+
+
+<body>
+  <div id="content">
+
+    <!--Nedan ser man en lista på ärenden-->
+    <table>
+      @{
+        string controller = "";
+        string action = "";
+
+        controller = (string)Html.ViewContext.RouteData.Values["controller"];
+        if (controller == "Coordinator") {
+          action = "CrimeCoordinator";
+        }
+        else if (controller == "Investigator") {
+          action = "CrimeInvestigator";
+
+        }
+        else {
+          action = "CrimeManager";
+        }
+        <tr>
+          <th>Ärende anmält</th>
+          <th>Ärendenummer</th>
+          <th>Miljöbrott</th>
+          <th>Status</th>
+          <th>Avdelning</th>
+          <th>Handläggare</th>
+        </tr>
+
+        if (controller == "Coordinator") {
+          if (@ViewBag.ListOfMyErrands != null) {
+
+
+
+            @foreach (MyErrand myErrand in @ViewBag.ListOfMyErrands) {
+
+
+              <tr>
+                <td>@myErrand.DateOfObservation.ToShortDateString()</td>
+                <td><a asp-controller=@controller asp-action=@action asp-route-id="@myErrand.ErrandId">@myErrand.RefNumber</a></td>
+                <td>@myErrand.TypeOfCrime</td>
+                <td>@myErrand.StatusName</td>
+                <td>@myErrand.DepartmentName</td>
+                <td>@myErrand.EmployeeName</td>
+
+              </tr>
+            }
+          }
+        }
+        else if (controller == "Manager") {
+          if (@ViewBag.ListOfMyErrandsSameDepartment != null) {
+
+
+
+            @foreach (MyErrand myErrand in @ViewBag.ListOfMyErrandsSameDepartment) {
+
+
+              <tr>
+                <td>@myErrand.DateOfObservation.ToShortDateString()</td>
+                <td><a asp-controller=@controller asp-action=@action asp-route-id="@myErrand.ErrandId">@myErrand.RefNumber</a></td>
+                <td>@myErrand.TypeOfCrime</td>
+                <td>@myErrand.StatusName</td>
+                <td>@myErrand.DepartmentName</td>
+                <td>@myErrand.EmployeeName</td>
+
+              </tr>
+            }
+          }
+        }
+        else {
+          if (@ViewBag.ListOfInvestigatorErrands != null) {
+            @foreach (MyErrand myErrand in @ViewBag.ListOfInvestigatorErrands) {
+
+
+              <tr>
+                <td>@myErrand.DateOfObservation.ToShortDateString()</td>
+                <td><a asp-controller=@controller asp-action=@action asp-route-id="@myErrand.ErrandId">@myErrand.RefNumber</a></td>
+                <td>@myErrand.TypeOfCrime</td>
+                <td>@myErrand.StatusName</td>
+                <td>@myErrand.DepartmentName</td>
+                <td>@myErrand.EmployeeName</td>
+
+              </tr>
+            }
+          }
+        }
+      }
+    </table>
+  </div><!-- End Content -->
+
+
+
+</body>
+

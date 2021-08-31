@@ -1,0 +1,40 @@
+﻿@{
+  Layout = "_HeaderLayout";
+}
+
+    <!-- MAIN LAYOUT HOLDS HEADER, A SPECIFIC NAV BAR & FOOTER -->
+<nav>
+  <ul>
+    @{
+      string controller = (string)Html.ViewContext.RouteData.Values["controller"];
+      if (controller == "Home" || controller == "Citizen" || controller == "Account") {
+        <li><a asp-controller="Home" asp-action="Index">Hem</a></li>
+        <li><a asp-controller="Citizen" asp-action="Services">Tjänster</a></li>
+        <li><a asp-controller="Citizen" asp-action="Faq">FAQ</a></li>
+        <li><a asp-controller="Citizen" asp-action="Contact">Kontakt</a></li>
+        <li class="right"><a class="login" asp-controller="Account" asp-action="Login">Logga in (endast personal)</a></li>
+      }
+      else if (controller == "Coordinator") {
+        <li><a class="reports" asp-controller="Coordinator" asp-action="StartCoordinator">Start(Ärenden)</a></li>
+        <li><a class="reportAdd" asp-controller="Coordinator" asp-action="ReportCrime">Rapportera brott</a></li>
+        <li class="right"><a class="logout" asp-controller="Home" asp-action="Index">Logga ut</a></li>
+
+      }
+      else if (controller == "Investigator") {
+        <li><a class="reports" asp-controller="Investigator" asp-action="StartInvestigator">Start(Ärenden)</a></li>
+        <li class="right"><a class="logout" asp-controller="Home" asp-action="Index">Logga ut</a></li>
+      }
+      else {
+        <li><a class="reports" asp-controller="Manager" asp-action="StartManager">Start(Ärenden)</a></li>
+        <li class="right"><a class="logout" asp-controller="Home" asp-action="Index">Logga ut</a></li>
+      }
+    }
+  </ul>
+</nav><!-- End Nav -->
+
+<div id="content">
+  @RenderBody()
+  <footer>
+    &copy; Småstads Kommun All rights reserved.
+  </footer>
+</div>
